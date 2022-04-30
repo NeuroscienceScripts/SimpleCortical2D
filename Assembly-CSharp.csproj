@@ -42,8 +42,10 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\RunShaders.cs" />
-     <Compile Include="Assets\Electrode.cs" />
      <Compile Include="Assets\CorticalModel.cs" />
+     <Compile Include="Assets\Electrode.cs" />
+     <None Include="Assets\CorticalModel.shader" />
+     <None Include="Assets\ImagePreprocessing.shader" />
      <Reference Include="UnityEngine">
      <HintPath>/home/justin/Unity/Hub/Editor/2021.1.22f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
      </Reference>
@@ -638,6 +640,9 @@
      <Reference Include="Unity.VisualStudio.Editor">
      <HintPath>/home/justin/Documents/UnityProjects/BVL/SimpleCortical2D/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.Sysroot.Linux_x86_64">
+     <HintPath>/home/justin/Documents/UnityProjects/BVL/SimpleCortical2D/Library/ScriptAssemblies/Unity.Sysroot.Linux_x86_64.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.Timeline.Editor">
      <HintPath>/home/justin/Documents/UnityProjects/BVL/SimpleCortical2D/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
      </Reference>
@@ -655,6 +660,9 @@
      </Reference>
      <Reference Include="VSSettingsProvider">
      <HintPath>/home/justin/Documents/UnityProjects/BVL/SimpleCortical2D/Library/ScriptAssemblies/VSSettingsProvider.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Toolchain.Linux-x86_64">
+     <HintPath>/home/justin/Documents/UnityProjects/BVL/SimpleCortical2D/Library/ScriptAssemblies/Unity.Toolchain.Linux-x86_64.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.Flow">
      <HintPath>/home/justin/Documents/UnityProjects/BVL/SimpleCortical2D/Library/ScriptAssemblies/Unity.VisualScripting.Flow.dll</HintPath>
@@ -676,12 +684,6 @@
      </Reference>
      <Reference Include="Unity.VisualScripting.Core">
      <HintPath>/home/justin/Documents/UnityProjects/BVL/SimpleCortical2D/Library/ScriptAssemblies/Unity.VisualScripting.Core.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Sysroot.Linux_x86_64">
-     <HintPath>/home/justin/Documents/UnityProjects/BVL/SimpleCortical2D/Library/ScriptAssemblies/Unity.Sysroot.Linux_x86_64.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Toolchain.Linux-x86_64">
-     <HintPath>/home/justin/Documents/UnityProjects/BVL/SimpleCortical2D/Library/ScriptAssemblies/Unity.Toolchain.Linux-x86_64.dll</HintPath>
      </Reference>
      <Reference Include="Unity.SysrootPackage.Editor">
      <HintPath>/home/justin/Documents/UnityProjects/BVL/SimpleCortical2D/Library/ScriptAssemblies/Unity.SysrootPackage.Editor.dll</HintPath>
