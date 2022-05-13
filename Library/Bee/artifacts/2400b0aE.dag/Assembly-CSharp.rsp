@@ -323,6 +323,8 @@
 "Assets/CorticalModel.cs"
 "Assets/Electrode.cs"
 "Assets/RunShaders.cs"
+"Assets/SimpleFirstPersonMovement.cs"
+"Assets/UnitConverter.cs"
 -langversion:8.0
 
 /deterministic

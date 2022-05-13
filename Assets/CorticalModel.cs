@@ -30,9 +30,9 @@ public class CorticalModel : MonoBehaviour
         {
             for (int x = 0; x < xRes; x++)
             {
-                float screenPosX = (float)x/xRes;
-                float screenPosY = (float)y/yRes;
-                rs.pixelMap[(y * xRes) + x] = GetCortexLocationV1(screenPosX, 1-screenPosY);
+                float degreeVisualX = UnitConverter.screenPosToDegree((float)x/xRes);
+                float degreeVisualY = UnitConverter.screenPosToDegree(1.0f - (float)y/yRes);
+                rs.pixelMap[(y * xRes) + x] = GetCortexLocationV1(degreeVisualX, 1-degreeVisualY);
             }
         }
         Debug.Log("Finished creating cortical map, size=" + rs.pixelMap.Length);

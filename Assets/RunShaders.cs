@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class RunShaders : MonoBehaviour
 {
@@ -12,10 +13,10 @@ public class RunShaders : MonoBehaviour
     
     public bool useRectangularArray = true; 
     public int numberElectrodesX = 10;
-    public float screenInputSpacingX;
     public int numberElectrodesY = 10;
-    public float screenInputSpacingY;
-    public (float, float) screenInputCenter = (0, 0); 
+    public int downscaleFactor = 1;
+    public float headset_fov = 55.0f; 
+    
     public float electrodeSpacing = 5.0f;
     public float rotation = 0.0f;
     public float xPosition = 0.0f;
@@ -26,7 +27,9 @@ public class RunShaders : MonoBehaviour
     public float[] pixelsToElectrodesGauss; 
     public (float, float)[] pixelMap; 
     public CorticalModel cm;
-
+    public int xRes;
+    public int yRes; 
+    
     public bool runCorticalModel; 
     
     private ComputeBuffer electrodesBuffer;
@@ -39,47 +42,65 @@ public class RunShaders : MonoBehaviour
         cm = CorticalModel.Instance;
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Space))
+            runCorticalModel = !runCorticalModel; 
+    }
+
     private void OnRenderImage(RenderTexture src, RenderTexture dest)
     {
+        RenderTexture tmp = RenderTexture.GetTemporary(src.width / downscaleFactor, src.height / downscaleFactor, 0);
+        Graphics.Blit(src, tmp); 
         if (currentFrame == 0)
         {
-            if(cm.MapPixelsToCortex(src.width, src.height))
+            xRes = (int) Math.Floor((double) tmp.width / (double) downscaleFactor);
+            yRes = (int) Math.Floor((double) tmp.height / (double) downscaleFactor);
+
+            Debug.Log("X-res" + xRes);
+            Debug.Log("Y-res" + yRes);
+
+            if (cm.MapPixelsToCortex(xRes, yRes))
+            {
                 if (useRectangularArray)
-                    electrodes = Electrode.SetRectangularArray(numberElectrodesX, numberElectrodesY, electrodeSpacing, rotation, xPosition, yPosition, src.width, src.height); 
-            
-            cm.GetGaussToElectrodes(); 
+                     electrodes = Electrode.SetRectangularArray(numberElectrodesX, numberElectrodesY,
+                        electrodeSpacing, rotation, xPosition, yPosition, xRes, yRes);
+            }
+            else Debug.Log("Failed to create cortical map");
+
+            InitializeElectrodes(); 
         }
-        
-        electrodesBuffer = new ComputeBuffer(electrodes.Length,
-            System.Runtime.InteropServices.Marshal.SizeOf(typeof(Electrode)), ComputeBufferType.Default);
-        Graphics.SetRandomWriteTarget(2, electrodesBuffer, true);
+
+       
         shaderMaterial.SetBuffer("electrodesBuffer", electrodesBuffer);
         preProcessingMaterial.SetBuffer("electrodesBuffer", electrodesBuffer);
         electrodesBuffer.SetData(electrodes);
         
-        pixelsToElectrodesGaussBuffer = new ComputeBuffer(electrodes.Length * src.width * src.height,
-            System.Runtime.InteropServices.Marshal.SizeOf(typeof(float)), ComputeBufferType.Default);
+        
         pixelsToElectrodesGaussBuffer.SetData(pixelsToElectrodesGauss);
         shaderMaterial.SetBuffer("pixelsToElectrodesGaussBuffer", pixelsToElectrodesGaussBuffer);
 
         preProcessingMaterial.SetInt("numberElectrodes", electrodes.Length);
-        preProcessingMaterial.SetInt("xResolution", src.width);
-        preProcessingMaterial.SetInt("yResolution", src.height); 
+        preProcessingMaterial.SetInt("xResolution", tmp.width);
+        preProcessingMaterial.SetInt("yResolution", tmp.height); 
         preProcessingMaterial.SetFloat("amplitude", amplitude);
         
         
-        shaderMaterial.SetInt("xResolution", src.width);
-        shaderMaterial.SetInt("yResolution", src.height);
+        shaderMaterial.SetInt("xResolution", tmp.width);
+        shaderMaterial.SetInt("yResolution", tmp.height);
         shaderMaterial.SetInt("numberElectrodes", electrodes.Length);
 
-        RenderTexture tmp = RenderTexture.GetTemporary((int) src.width, 
-            (int) src.height, 0); 
-        Graphics.Blit(src, tmp, preProcessingMaterial);
+        RenderTexture tmp2 = RenderTexture.GetTemporary((int) tmp.width, 
+            (int) tmp.height, 0); 
+        Graphics.Blit(tmp, tmp2, preProcessingMaterial);
+        RenderTexture tmp3 = RenderTexture.GetTemporary(tmp2.width, tmp2.height, 0); 
         
         if(runCorticalModel)
-            Graphics.Blit(src, dest, shaderMaterial);
+            Graphics.Blit(tmp2, tmp3, shaderMaterial);
         else
-            Graphics.Blit(tmp, dest);
+            Graphics.Blit(tmp2, tmp3);
+
+        Graphics.Blit(tmp3, dest); 
 
         // if (currentFrame % 1000 == 0)
         // {
@@ -89,13 +110,22 @@ public class RunShaders : MonoBehaviour
         //         Debug.Log(electrode);
         //     }
         // }
-        
-        electrodesBuffer.Dispose();
-        pixelsToElectrodesGaussBuffer.Dispose();
-
+        RenderTexture.ReleaseTemporary(tmp); 
+        RenderTexture.ReleaseTemporary(tmp2); 
+        RenderTexture.ReleaseTemporary(tmp3); 
         currentFrame++; 
     }
-    
+
+    private void InitializeElectrodes()
+    {
+        cm.GetGaussToElectrodes();
+        electrodesBuffer = new ComputeBuffer(electrodes.Length,
+            System.Runtime.InteropServices.Marshal.SizeOf(typeof(Electrode)), ComputeBufferType.Default);
+        Graphics.SetRandomWriteTarget(2, electrodesBuffer, true);
+        pixelsToElectrodesGaussBuffer = new ComputeBuffer(electrodes.Length * xRes * yRes,
+            System.Runtime.InteropServices.Marshal.SizeOf(typeof(float)), ComputeBufferType.Default);
+    }
+
     private void Awake()
     {
         if ( Instance == null)

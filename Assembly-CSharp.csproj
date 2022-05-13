@@ -41,7 +41,9 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\SimpleFirstPersonMovement.cs" />
      <Compile Include="Assets\RunShaders.cs" />
+     <Compile Include="Assets\UnitConverter.cs" />
      <Compile Include="Assets\CorticalModel.cs" />
      <Compile Include="Assets\Electrode.cs" />
      <None Include="Assets\CorticalModel.shader" />
