@@ -73,7 +73,7 @@ Shader "Unlit/CorticalModel"
             {
                 uint xPixel = pixelNumberX(i.grabPos.x)-1;
                 if (xPixel <= xResolution/2.0f)
-                    return fixed4(0.03,.03,.03,1); 
+                    return fixed4(0,0,0,1); 
                 
                 uint yPixel = pixelNumberY(i.grabPos.y)-1;
                 uint loc1D = (yPixel*xResolution) + xPixel; 

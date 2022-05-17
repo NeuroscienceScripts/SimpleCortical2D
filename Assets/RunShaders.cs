@@ -15,7 +15,8 @@ public class RunShaders : MonoBehaviour
     public int numberElectrodesX = 10;
     public int numberElectrodesY = 10;
     public int downscaleFactor = 1;
-    public float headset_fov = 55.0f; 
+    public float headset_fov = 55.0f;
+    public float current_spread = 1.0f; 
     
     public float electrodeSpacing = 5.0f;
     public float rotation = 0.0f;
@@ -44,7 +45,7 @@ public class RunShaders : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
             runCorticalModel = !runCorticalModel; 
     }
 
@@ -63,8 +64,14 @@ public class RunShaders : MonoBehaviour
             if (cm.MapPixelsToCortex(xRes, yRes))
             {
                 if (useRectangularArray)
-                     electrodes = Electrode.SetRectangularArray(numberElectrodesX, numberElectrodesY,
+                {
+                    electrodes = Electrode.SetRectangularArray(numberElectrodesX, numberElectrodesY,
                         electrodeSpacing, rotation, xPosition, yPosition, xRes, yRes);
+                    foreach (var VARIABLE in electrodes)
+                    {
+                        Debug.Log(VARIABLE.screenPosX + "," + VARIABLE.screenPosY);
+                    }
+                }
             }
             else Debug.Log("Failed to create cortical map");
 

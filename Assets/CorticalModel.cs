@@ -14,7 +14,8 @@ public class CorticalModel : MonoBehaviour
     public float headsetFOV;
     public RunShaders rs;
 
-    public float currentSpread_sigma = 0.276f; // S/m
+    public float distThresh = 20;
+    // public float currentSpread_sigma = 0.276f; // S/m
     public float _k = 15.0f;
     public float _a = 0.5f;
     public float _b = 90.0f;
@@ -31,7 +32,7 @@ public class CorticalModel : MonoBehaviour
             for (int x = 0; x < xRes; x++)
             {
                 float degreeVisualX = UnitConverter.screenPosToDegree((float)x/xRes);
-                float degreeVisualY = UnitConverter.screenPosToDegree(1.0f - (float)y/yRes);
+                float degreeVisualY = UnitConverter.screenPosToDegree((float)y/yRes);
                 rs.pixelMap[(y * xRes) + x] = GetCortexLocationV1(degreeVisualX, 1-degreeVisualY);
             }
         }
@@ -67,11 +68,12 @@ public class CorticalModel : MonoBehaviour
             {
                 float distX = (float) Math.Pow((rs.pixelMap[p].Item1 - rs.electrodes[e].xPosition), 2);
                 float distY = (float) Math.Pow((rs.pixelMap[p].Item2 - rs.electrodes[e].yPosition), 2);
-                float dist = (float) Math.Sqrt( distX + distY);
+                float dist = (float) distX + distY;
 
-                float gauss = 1.0f / (4.0f * (float) Math.PI * currentSpread_sigma * dist);
-                gauss = gauss < 0 ? 0 : gauss;
-                gauss = gauss > 1 ? 1 : gauss; 
+                float gauss = 0; 
+                if(dist < distThresh)
+                    gauss = (float) (Math.Exp(-1 * (double) dist /  (Math.Pow((double) RunShaders.Instance.current_spread, 2.0) * 2.0)));
+
                 rs.pixelsToElectrodesGauss[(p * rs.electrodes.Length) + e] = gauss;
             }
 

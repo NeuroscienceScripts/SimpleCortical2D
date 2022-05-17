@@ -76,8 +76,9 @@ Shader "ImagePreprocessing"
                 
                 for(int currentElectrode = 0; currentElectrode < numberElectrodes; currentElectrode++){
                     if( pixelNumberX(i.uv.x) == electrodesBuffer[currentElectrode].screen_x_pos
-                    && pixelNumberY(i.uv.y) ==electrodesBuffer[currentElectrode].screen_y_pos){
-                        electrodesBuffer[currentElectrode].current = amplitude * lumCol; 
+                    && pixelNumberY(i.uv.y) == electrodesBuffer[currentElectrode].screen_y_pos){
+                        electrodesBuffer[currentElectrode].current = amplitude * lumCol;
+                        return fixed4(1, 0, 0, 1); 
                     }
                 }
                 

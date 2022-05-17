@@ -46,6 +46,7 @@
      <Compile Include="Assets\UnitConverter.cs" />
      <Compile Include="Assets\CorticalModel.cs" />
      <Compile Include="Assets\Electrode.cs" />
+     <None Include="Assets\ImagePreprocessing._withBlur.shader" />
      <None Include="Assets\CorticalModel.shader" />
      <None Include="Assets\ImagePreprocessing.shader" />
      <Reference Include="UnityEngine">
