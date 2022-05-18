@@ -401,3 +401,4 @@
 /home/justin/Documents/UnityProjects/BVL/SimpleCortical2D/obj/Debug/Assembly-CSharp.csproj.CopyComplete
 /home/justin/Documents/UnityProjects/BVL/SimpleCortical2D/obj/Debug/Assembly-CSharp.dll
 /home/justin/Documents/UnityProjects/BVL/SimpleCortical2D/obj/Debug/Assembly-CSharp.pdb
+C:\Users\Justin\RiderProjects\SimpleCortical2D\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache

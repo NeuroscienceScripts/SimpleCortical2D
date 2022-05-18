@@ -15,7 +15,7 @@ Shader "ImagePreprocessing"
             #pragma fragment frag
             #pragma fragmentoption ARB_precision_hint_fastest
             #pragma target 5.0
-            
+            #pragma enable_d3d11_debug_symbols
             
             #include "UnityCG.cginc"
 

@@ -212,6 +212,7 @@ Transform:
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -293,6 +294,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -306,6 +308,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 130581081}
   m_Father: {fileID: 0}
@@ -344,6 +347,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 70511964}
   m_RootOrder: 0
@@ -373,7 +377,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: a4bfdcfe3a8546ed9ad64b927d7f4279, type: 2}
+  m_Texture: {fileID: 8400000, guid: b063ab4369ec5504bacf9c08c25ff01b, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -423,7 +427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headsetFOV: 0
   rs: {fileID: 0}
-  currentSpread_sigma: 0.276
+  distThresh: 20
   _k: 15
   _a: 0.5
   _b: 90
@@ -442,13 +446,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa17e1cba809909591144759d82a9e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shaderMaterial: {fileID: 2100000, guid: ab08d400efdd207c48cbbb729e1ec3e4, type: 2}
-  preProcessingMaterial: {fileID: 2100000, guid: cfa7a96308d68da2bb8fcbaacdcef874, type: 2}
+  shaderMaterial: {fileID: 2100000, guid: 6ccc7c3bad3fde049a0cbbd36aa8bb1a, type: 2}
+  preProcessingMaterial: {fileID: 2100000, guid: b8e250cccb718ac439879c09209ba2d0, type: 2}
   useRectangularArray: 1
   numberElectrodesX: 10
   numberElectrodesY: 10
   downscaleFactor: 1
   headset_fov: 55
+  current_spread: 1
   electrodeSpacing: 4
   rotation: 0
   xPosition: 20
@@ -520,6 +525,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 682220929}
   m_Father: {fileID: 0}
@@ -568,6 +574,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 200820520}
   m_RootOrder: 0
@@ -605,7 +612,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: a4bfdcfe3a8546ed9ad64b927d7f4279, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: b063ab4369ec5504bacf9c08c25ff01b, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -641,6 +648,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1637852636}
   - {fileID: 1363487533}
@@ -676,6 +684,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 10, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 756909896}
   m_RootOrder: 1
@@ -835,6 +844,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 10, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 756909896}
   m_RootOrder: 0
@@ -901,6 +911,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4

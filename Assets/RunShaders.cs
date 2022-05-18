@@ -67,14 +67,10 @@ public class RunShaders : MonoBehaviour
                 {
                     electrodes = Electrode.SetRectangularArray(numberElectrodesX, numberElectrodesY,
                         electrodeSpacing, rotation, xPosition, yPosition, xRes, yRes);
-                    foreach (var VARIABLE in electrodes)
-                    {
-                        Debug.Log(VARIABLE.screenPosX + "," + VARIABLE.screenPosY);
-                    }
                 }
             }
             else Debug.Log("Failed to create cortical map");
-
+`
             InitializeElectrodes(); 
         }
 

@@ -1,5 +1,6 @@
 using System;
 using Unity.VisualScripting;
+using UnityEngine; 
 
 public struct Electrode
 {
@@ -37,8 +38,8 @@ public struct Electrode
                 // Space out electrodes
                 x_pos = (col - numberElectrodesX / 2.0f + 0.5f) * electrodeSpacing;
                 y_pos = (row - numberElectrodesY / 2.0f + 0.5f) * electrodeSpacing;
-                screen_x_pos = (col - numberElectrodesX / 2.0f + 0.5f) * (1.0f / numberElectrodesX); 
-                screen_y_pos = (col - numberElectrodesY / 2.0f + 0.5f) * (1.0f / numberElectrodesY);
+                screen_x_pos = 0; 
+                screen_y_pos = 0;
 
                 // Rotate electrodes 
                 float deg2rad = (float) Math.PI / 180.0f; 
@@ -52,16 +53,15 @@ public struct Electrode
 
                 float minDist = 9999.0f; 
                 for(int y=0; y<yRes; y++)
-                    for (int x = 0; x < xRes; x++)
+                    for (int x = xRes/2; x < xRes; x++)
                     {
                         float distX = x_pos - RunShaders.Instance.pixelMap[(y*xRes) + x].Item1; 
-                        float disty = y_pos - RunShaders.Instance.pixelMap[(y*xRes) + x].Item2;
-                        if (Math.Sqrt(Math.Pow(distX, 2) + Math.Pow(disty, 2)) < minDist)
+                        float distY = y_pos - RunShaders.Instance.pixelMap[(y*xRes) + x].Item2;
+                        if (Math.Sqrt(Math.Pow(distX, 2) + Math.Pow(distY, 2)) < minDist)
                         {
-                            minDist = (float) (Math.Sqrt(Math.Pow(distX, 2) + Math.Pow(disty, 2)));
+                            minDist = (float) (Math.Sqrt(Math.Pow(distX, 2) + Math.Pow(distY, 2)));
                             screen_x_pos = x;
-                            screen_y_pos = y; 
-
+                            screen_y_pos = y;
                         }
                     }
                    
